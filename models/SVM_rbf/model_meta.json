@@ -1,0 +1,46 @@
+{
+  "pkl_path": "D:\\DURIAN 2025\\1trả lời phản biện 2026\\results_AM07\\exported_models\\SVM_rbf\\SVM_rbf__kernel_rbf.pkl",
+  "onnx_path": "D:\\DURIAN 2025\\1trả lời phản biện 2026\\results_AM07\\exported_models\\SVM_rbf\\SVM_rbf__kernel_rbf.onnx",
+  "input_name": "input",
+  "output_names": [
+    "label",
+    "probabilities"
+  ],
+  "probabilities_output": "probabilities",
+  "label_output": "label",
+  "class_labels": [
+    1,
+    2
+  ],
+  "feature_columns": [
+    "PeakFreq_Hz",
+    "Centroid_Hz",
+    "MFCC1_mean",
+    "MFCC2_mean",
+    "MFCC3_mean",
+    "MFCC4_mean",
+    "MFCC5_mean",
+    "MFCC6_mean",
+    "MFCC7_mean",
+    "MFCC8_mean",
+    "MFCC9_mean",
+    "MFCC10_mean",
+    "MFCC11_mean",
+    "MFCC12_mean",
+    "MFCC13_mean",
+    "MFCC1_std",
+    "MFCC2_std",
+    "MFCC3_std",
+    "MFCC4_std",
+    "MFCC5_std",
+    "MFCC6_std",
+    "MFCC7_std",
+    "MFCC8_std",
+    "MFCC9_std",
+    "MFCC10_std",
+    "MFCC11_std",
+    "MFCC12_std",
+    "MFCC13_std"
+  ],
+  "n_features": 28
+}

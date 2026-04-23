@@ -1,0 +1,56 @@
+<!DOCTYPE html><html  lang="en"><head><title data-rh="true"></title><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><style id="expo-reset">#root,body,html{height:100%}body{overflow:hidden}#root{display:flex}</style><style id="react-native-stylesheet">[stylesheet-group="0"]{}
+body{margin:0;}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}
+[stylesheet-group="1"]{}
+.css-11aywtz{-moz-appearance:textfield;-webkit-appearance:none;background-color:rgba(0,0,0,0.00);border-bottom-left-radius:0px;border-bottom-right-radius:0px;border-top-left-radius:0px;border-top-right-radius:0px;border:0 solid black;box-sizing:border-box;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0px;padding:0px;resize:none;}
+.css-146c3p1{background-color:rgba(0,0,0,0.00);border:0 solid black;box-sizing:border-box;color:rgba(0,0,0,1.00);display:inline;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;list-style:none;margin:0px;padding:0px;position:relative;text-align:start;text-decoration:none;white-space:pre-wrap;word-wrap:break-word;}
+.css-1jxf684{background-color:rgba(0,0,0,0.00);border:0 solid black;box-sizing:border-box;color:inherit;display:inline;font:inherit;list-style:none;margin:0px;padding:0px;position:relative;text-align:inherit;text-decoration:none;white-space:inherit;word-wrap:break-word;}
+.css-9pa8cd{bottom:0px;height:100%;left:0px;opacity:0;position:absolute;right:0px;top:0px;width:100%;z-index:-1;}
+.css-g5y9jx{align-content:flex-start;align-items:stretch;background-color:rgba(0,0,0,0.00);border:0 solid black;box-sizing:border-box;display:flex;flex-basis:auto;flex-direction:column;flex-shrink:0;list-style:none;margin:0px;min-height:0px;min-width:0px;padding:0px;position:relative;text-decoration:none;z-index:0;}
+[stylesheet-group="2"]{}
+.r-11mg6pl{border-bottom-color:rgba(255,255,255,1.00);border-left-color:rgba(255,255,255,1.00);border-right-color:rgba(255,255,255,1.00);border-top-color:rgba(255,255,255,1.00);}... (truncated for brevity)
+<script src="/_expo/static/js/web/entry-97b6cd4b2860cddd7ad0b75e7e55699e.js" defer></script>
+<script>
+(function(){
+  const panelId = 'onnx-features-panel';
+  function ensurePanel(){
+    let p = document.getElementById(panelId);
+    if(!p){
+      p = document.createElement('div');
+      p.id = panelId;
+      p.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,0.85);color:#fff;padding:8px;border-radius:6px;max-width:420px;max-height:60vh;overflow:auto;font-size:12px;font-family:monospace;white-space:pre-wrap;';
+      document.body.appendChild(p);
+    }
+    return p;
+  }
+  function formatFeatures(arr){
+    return 'Features ('+arr.length+')\\n'+arr.map((v,i)=> i===0?('peak:'+v): i===1?('centroid:'+v): i<=14?('mfcc_mean['+(i-2)+']:'+v):('mfcc_std['+(i-15)+']:'+v)).join('\\n');
+  }
+  let lastId = null;
+  const poll = ()=>{
+    try{
+      if(typeof window.__getResults !== 'function') return;
+      const results = window.__getResults() || [];
+      if(!results.length) return;
+      const last = results[results.length-1];
+      if(!last) return;
+      if(last.id && last.id === lastId) return;
+      lastId = last.id || lastId;
+      const peak = Number(last.peak || 0);
+      const centroid = Number(last.centroid || 0);
+      const mfcc_mean = Array.isArray(last.mfcc_mean) ? last.mfcc_mean.slice(0,13).map(Number) : Array.from({length:13},()=>0);
+      const mfcc_std = Array.isArray(last.mfcc_std) ? last.mfcc_std.slice(0,13).map(Number) : Array.from({length:13},()=>0);
+      const features = [peak, centroid, ...mfcc_mean, ...mfcc_std];
+      const p = ensurePanel();
+      p.textContent = formatFeatures(features);
+    }catch(e){
+      console.warn('Feature panel poll error', e);
+    }
+  };
+  const t = setInterval(poll,500);
+  window.addEventListener('beforeunload',()=>clearInterval(t));
+})();
+</script>
+</body></html>

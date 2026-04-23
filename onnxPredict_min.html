@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>onnxPredict (minimal)</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="/_expo/static/js/web/entry-97b6cd4b2860cddd7ad0b75e7e55699e.js" defer></script>
+  <script>
+  (function(){
+    const panelId = 'onnx-features-panel';
+    function ensurePanel(){
+      let p = document.getElementById(panelId);
+      if(!p){
+        p = document.createElement('div');
+        p.id = panelId;
+        p.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,0.85);color:#fff;padding:8px;border-radius:6px;max-width:420px;max-height:60vh;overflow:auto;font-size:12px;font-family:monospace;white-space:pre-wrap;';
+        document.body.appendChild(p);
+      }
+      return p;
+    }
+    function formatFeatures(arr){
+      return 'Features ('+arr.length+')\\n'+arr.map((v,i)=> i===0?('peak:'+v): i===1?('centroid:'+v): i<=14?('mfcc_mean['+(i-2)+']:'+v):('mfcc_std['+(i-15)+']:'+v)).join('\\n');
+    }
+    let lastId = null;
+    const poll = ()=>{
+      try{
+        if(typeof window.__getResults !== 'function') return;
+        const results = window.__getResults() || [];
+        if(!results.length) return;
+        const last = results[results.length-1];
+        if(!last) return;
+        if(last.id && last.id === lastId) return;
+        lastId = last.id || lastId;
+        const peak = Number(last.peak || 0);
+        const centroid = Number(last.centroid || 0);
+        const mfcc_mean = Array.isArray(last.mfcc_mean) ? last.mfcc_mean.slice(0,13).map(Number) : Array.from({length:13},()=>0);
+        const mfcc_std = Array.isArray(last.mfcc_std) ? last.mfcc_std.slice(0,13).map(Number) : Array.from({length:13},()=>0);
+        const features = [peak, centroid, ...mfcc_mean, ...mfcc_std];
+        const p = ensurePanel();
+        p.textContent = formatFeatures(features);
+      }catch(e){
+        console.warn('Feature panel poll error', e);
+      }
+    };
+    const t = setInterval(poll,500);
+    window.addEventListener('beforeunload',()=>clearInterval(t));
+  })();
+  </script>
+</body>
+</html>

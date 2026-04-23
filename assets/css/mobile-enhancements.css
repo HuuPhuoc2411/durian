@@ -1,0 +1,336 @@
+/* Mobile-first visual polish without touching app runtime logic */
+:root {
+  --bg-top: #f6fbff;
+  --bg-bottom: #e8eef7;
+  --surface: #ffffff;
+  --surface-border: #dbe4f2;
+  --text-main: #13233a;
+  --text-muted: #5d6f87;
+  --primary-start: #0086c9;
+  --primary-end: #005f97;
+  --accent-start: #f39a2d;
+  --accent-end: #d86f08;
+  --success: #43b556;
+}
+
+html,
+body {
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%) !important;
+  color: var(--text-main);
+}
+
+body {
+  overflow-y: auto !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100%;
+}
+
+#root.ui-enhanced .ui-main-container {
+  padding: 16px !important;
+}
+
+#root.ui-enhanced .ui-primary-column {
+  max-width: 680px !important;
+  margin: 8px auto !important;
+  display: grid;
+  gap: 12px;
+}
+
+/* Title */
+#root.ui-enhanced .ui-title,
+#root h1 {
+  color: var(--text-main);
+  letter-spacing: 0.2px;
+}
+
+/* Main cards */
+#root.ui-enhanced .ui-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 30px rgba(8, 35, 67, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: card-enter 0.45s ease both;
+}
+
+#root.ui-enhanced .ui-card-progress,
+#root.ui-enhanced .ui-card-predictions {
+  padding: 14px !important;
+}
+
+#root.ui-enhanced .ui-controls-row {
+  display: grid !important;
+  gap: 10px;
+  margin-top: 10px !important;
+  align-items: start;
+}
+
+#root.ui-enhanced .ui-duration-field {
+  display: grid !important;
+  gap: 6px;
+}
+
+#root.ui-enhanced .ui-actions-group {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 10px !important;
+}
+
+#root.ui-enhanced .ui-status-duplicate {
+  background: #eef3fb;
+  border: 1px solid #d7e1ef;
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #29486f;
+  font-size: 14px;
+}
+
+#root.ui-enhanced .ui-charts-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#root.ui-enhanced .ui-processed-section {
+  margin-top: 2px !important;
+}
+
+#root.ui-enhanced .ui-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(8, 35, 67, 0.12);
+}
+
+/* Input */
+#root.ui-enhanced .ui-input-number,
+#root input[type="number"] {
+  border: 1px solid #c9d6eb !important;
+  border-radius: 12px !important;
+  background: #f9fcff;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#root.ui-enhanced .ui-input-number:focus,
+#root input[type="number"]:focus {
+  border-color: #2a88d9 !important;
+  box-shadow: 0 0 0 3px rgba(42, 136, 217, 0.2);
+}
+
+/* Buttons */
+#root.ui-enhanced .ui-btn,
+#root button {
+  border: 0 !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 8px 20px rgba(0, 95, 151, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+#root.ui-enhanced .ui-btn {
+  min-height: 46px;
+}
+
+#root.ui-enhanced .ui-btn:not(:disabled):hover,
+#root button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 95, 151, 0.28);
+  filter: saturate(1.05);
+}
+
+#root.ui-enhanced .ui-btn:not(:disabled):active,
+#root button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Action buttons */
+#root.ui-enhanced .ui-btn-primary {
+  background: linear-gradient(135deg, var(--primary-start) 0%, var(--primary-end) 100%) !important;
+}
+
+#root.ui-enhanced .ui-btn-secondary {
+  background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-end) 100%) !important;
+}
+
+#root.ui-enhanced .ui-btn-logs {
+  background: linear-gradient(135deg, #1d9d8d 0%, #147a6d 100%) !important;
+}
+
+#root.ui-enhanced .ui-btn:disabled,
+#root button:disabled {
+  background: #dbe2ec !important;
+  color: #7b889a !important;
+  box-shadow: none;
+  border: 1px solid #cbd5e4 !important;
+}
+
+/* Progress bar tone */
+#root.ui-enhanced .ui-progress-track,
+#root div[style*="height:12px"][style*="background:#eee"] {
+  background: #dde5f3 !important;
+  border-radius: 999px !important;
+}
+
+#root.ui-enhanced .ui-progress-fill,
+#root div[style*="height:100%"][style*="background:#4caf50"] {
+  background: linear-gradient(90deg, #3cbc59 0%, var(--success) 100%) !important;
+}
+
+/* Text polishing */
+#root div[style*="font-size:12px;color:#666"],
+#root div[style*="color:#666"] {
+  color: var(--text-muted) !important;
+}
+
+/* Mobile layout tuning */
+@media (max-width: 768px) {
+  #root.ui-enhanced .ui-title,
+  #root h1 {
+    font-size: 1.9rem;
+    margin-top: 2px !important;
+    margin-bottom: 12px;
+  }
+
+  #root.ui-enhanced .ui-main-container,
+  #root div[style*="padding:16px;min-height:100vh"] {
+    padding: 12px !important;
+    min-height: 100dvh !important;
+  }
+
+  #root.ui-enhanced .ui-primary-column,
+  #root div[style*="max-width:640px"] {
+    max-width: 100% !important;
+    margin: 6px 0 !important;
+    gap: 10px !important;
+  }
+
+  #root.ui-enhanced .ui-card {
+    padding: 12px !important;
+  }
+
+  #root.ui-enhanced .ui-controls-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  #root.ui-enhanced .ui-actions-group {
+    grid-template-columns: 1fr;
+  }
+
+  #root div[style*="display:flex;gap:8px;align-items:center;margin-top:8px"] {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  #root label[style*="display:flex;flex-direction:column;flex:1"] {
+    width: 100%;
+  }
+
+  #root label[style*="display:flex;flex-direction:column;flex:1"] + div[style*="display:flex;gap:8px"] {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  #root.ui-enhanced .ui-input-number,
+  #root.ui-enhanced .ui-btn,
+  #root input[type="number"],
+  #root label[style*="display:flex;flex-direction:column;flex:1"] + div[style*="display:flex;gap:8px"] > button {
+    width: 100%;
+    min-height: 46px;
+    font-size: 16px !important;
+  }
+
+  #root div[style*="display:flex;justify-content:space-between;align-items:center"] {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #root.ui-enhanced .ui-btn-logs,
+  #root div[style*="display:flex;justify-content:space-between;align-items:center"] button {
+    width: 100%;
+    min-height: 36px;
+  }
+
+  #root.ui-enhanced .ui-status-duplicate {
+    font-size: 13px;
+    padding: 7px 9px;
+  }
+
+  #root h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 769px) {
+  #root.ui-enhanced .ui-controls-row {
+    grid-template-columns: minmax(220px, 1fr) minmax(250px, 320px);
+  }
+
+  #root.ui-enhanced .ui-btn-logs {
+    width: auto;
+    min-width: 140px;
+  }
+}
+
+/* Fallback card when app hides progress section after models finish loading */
+#mobile-progress-fallback.mobile-progress-card {
+  padding: 12px;
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 10px 30px rgba(8, 35, 67, 0.08);
+  margin-bottom: 12px;
+  animation: card-enter 0.35s ease both;
+}
+
+#mobile-progress-fallback .mobile-progress-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+#mobile-progress-fallback .mobile-progress-track {
+  height: 12px;
+  border-radius: 999px;
+  background: #dde5f3;
+  overflow: hidden;
+}
+
+#mobile-progress-fallback .mobile-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #3cbc59 0%, var(--success) 100%);
+}
+
+#mobile-progress-fallback .mobile-progress-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+#mobile-progress-fallback .mobile-progress-status {
+  font-size: 13px;
+  margin-top: 8px;
+  word-break: break-word;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
